@@ -1,11 +1,11 @@
 import io
 import fitz
-#import pytesseract
+
 from logging import getLogger
 logger = getLogger(__name__)
 
 def extract_text_from_pdf_ocr(file_content):
-    #pytesseract.tesseract_cmd = r"D:\\tesseract\\tesseract.exe"
+
     pdf_file = io.BytesIO(file_content)
     text_all = ""
     with fitz.open(stream=pdf_file, filetype="pdf") as doc:
@@ -14,10 +14,8 @@ def extract_text_from_pdf_ocr(file_content):
                 language="eng",  
                 dpi=300,
                 full=True,
-                #tessdata=r"D:\\tesseract\\tessdata"
             )
 
-            # IMPORTANT: use the returned TextPage for all extractions & searches
             text = page.get_text("text", textpage=tp)
 
             text_all += text
@@ -35,14 +33,11 @@ def extract_text_from_pdf(file_content):
         str: Extracted text from the PDF
     """
     try:
-        # Create a file-like object from the bytes content
         pdf_file = io.BytesIO(file_content)
         
-        # Open the PDF with PyMuPDF
         doc = fitz.open(stream=pdf_file, filetype="pdf")
         
         text = ""
-        # Extract text from each page
         for page_num in range(len(doc)):
             page = doc.load_page(page_num)
             text += page.get_text()

@@ -16,7 +16,6 @@ async def process_text(text: str,
                        extraction_instructions: str,
                        model: str):
     try:
-        # Assuming LLMProcessor has a method called `process` to handle text input
         llm_processor = LLMProcessor(
             model=model,
             api_key=settings.LLM_API_KEY

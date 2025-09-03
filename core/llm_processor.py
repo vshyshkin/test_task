@@ -61,7 +61,6 @@ class LLMProcessor:
         {text}
         """
         
-        # Add output format instructions if provided
         if output_format:
             format_str = json.dumps(output_format, indent=2)
             user_message += f"""       
@@ -81,10 +80,8 @@ class LLMProcessor:
                 api_key=self.api_key
             )
             
-            # Extract the response content
             content = response.choices[0].message.content
             
-            # If output_format was specified, try to parse as JSON
             if output_format:
                 try:
                     return json.loads(content)

@@ -15,7 +15,6 @@ async def extract_text_ocr(file: UploadFile = File(...)):
     """
     Extracts text from a scanned PDF file using OCR.
     """
-    # Check if file is a PDF
     if file.content_type != "application/pdf":
         raise HTTPException(
             status_code=400,
@@ -23,7 +22,6 @@ async def extract_text_ocr(file: UploadFile = File(...)):
         )
 
     try:
-        # Read the file content
         file_content = await file.read()
         extracted_text = extract_text_from_pdf_ocr(file_content)
 
@@ -46,7 +44,7 @@ async def extract_text(file: UploadFile = File(...)):
     Returns:
         dict: A dictionary containing the extracted text
     """
-    # Check if file is a PDF
+
     if file.content_type != "application/pdf":
         raise HTTPException(
             status_code=400,
@@ -54,10 +52,7 @@ async def extract_text(file: UploadFile = File(...)):
         )
     
     try:
-        # Read the file content
-        file_content = await file.read()
-        
-        # Extract text from the PDF
+        file_content = await file.read() 
         extracted_text = extract_text_from_pdf(file_content)
         
         return {"filename": file.filename, "text": extracted_text}
